@@ -20,8 +20,17 @@ require(['Define', 'DrawCore'], function() {
 
         mouseUp: function(coords, canvas, e){
             this._points.end = coords;
+            this.draw( canvas );
+            this._clean();
+        },
 
-            console.log(this._points);
+        draw: function( canvas ){
+            var ctx = canvas.context;
+
+            ctx.beginPath();
+            ctx.moveTo( this._points.start.x, this._points.start.y );
+            ctx.lineTo( this._points.end.x, this._points.end.y );
+            ctx.stroke();
         },
 
         mouseLeave: function(){

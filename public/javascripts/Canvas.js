@@ -1,7 +1,7 @@
 require(['Define'], function(){
     Define('Canvas', {
         init: function(){
-            this.el = $("#canvas");
+            this.el = document.getElementById('canvas');
 
             if( this.el.getContext ) {
                 this.context = this.el.getContext('2d');
@@ -11,17 +11,18 @@ require(['Define'], function(){
 
         initEvents: function(){
             if(this.drawAdapter) {
-                this.el.mouseup( $.proxy( this._mouseEvent, this, {
-                    name: 'mouseUp'
-                }));
-                this.el.mousemove( $.proxy( this._mouseEvent, this, {
-                    name: 'mouseMove'
-                }));
-                this.el.mousedown( $.proxy( this._mouseEvent, this, {
-                   name: 'mouseDown'
-                }));
-                this.el.mouseleave( $.proxy( this._mouseEvent, this, {
-                    name: 'mouseLeave'
+                $(this.el)
+                    .mouseup( $.proxy( this._mouseEvent, this, {
+                        name: 'mouseUp'
+                    }))
+                    .mousemove( $.proxy( this._mouseEvent, this, {
+                        name: 'mouseMove'
+                    }))
+                    .mousedown( $.proxy( this._mouseEvent, this, {
+                        name: 'mouseDown'
+                    }))
+                    .mouseleave( $.proxy( this._mouseEvent, this, {
+                        name: 'mouseLeave'
                 }));
             }
         },
