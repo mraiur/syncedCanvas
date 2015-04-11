@@ -1,7 +1,7 @@
 require(['jquery', 'bower/socket.io.js', 'lodash'],
     function($, io){
         var room = location.pathname.substring(1);
-        MRAIUR = io = io('http://localhost:3030');
+        MRAIUR = io = io('http://'+location.hostname+':3030');
 
         if( room ) {
             var drawAdapter = Class('Draw', {
