@@ -9,9 +9,9 @@ require(['jquery', 'bower/socket.io.js', 'lodash'],
             });
 
             $('#drawingType button').click(function() {
-                // TODO check if there is a data-draw-type attribute and there is a implemented draw class.
                 $(this).addClass('active').siblings().removeClass('active');
-                window.app.drawType = $(this).attr('data-draw-type');
+                var drawType = $(this).attr('data-draw-type')
+                window.app.canvas.drawAdapter.setDrawType( drawType );
             });
 
         } else {
@@ -31,7 +31,6 @@ require(['jquery', 'bower/socket.io.js', 'lodash'],
             io: io,
             canvas: Class('Canvas', {
                 drawAdapter: Class('Draw')
-            }),
-            drawType: $('#drawingType button.active').attr('data-draw-type')
+            })
         };
 });
