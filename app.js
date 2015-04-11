@@ -11,6 +11,8 @@ var server = app.listen(3030, function(){
 
 });
 
+app.set('port', 5000);
+
 var io = require('socket.io').listen(server);
 
 io.on('connection', function(socket){
