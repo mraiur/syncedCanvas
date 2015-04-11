@@ -1,4 +1,4 @@
-requirejs(['jquery', 'bower/socket.io.js'],
+require(['jquery', 'bower/socket.io.js', 'lodash'],
     function($, io){
         var room = location.pathname.substring(1);
         MRAIUR = io = io('http://localhost:3030');
@@ -9,9 +9,9 @@ requirejs(['jquery', 'bower/socket.io.js'],
             });
 
             $('#drawingType button').click(function() {
+                // TODO check if there is a data-draw-type attribute and there is a implemented draw class.
                 $(this).addClass('active').siblings().removeClass('active');
-                console.log("======", $(this).attr('data-draw-type'));
-                // TODO: insert whatever you want to do with $(this) here
+                window.app.drawType = $(this).attr('data-draw-type');
             });
 
         } else {
@@ -25,4 +25,13 @@ requirejs(['jquery', 'bower/socket.io.js'],
 
             });
         }
+        //var canvas = Class('Canvas');
+        // TODO make a better instance storage
+        window.app = {
+            io: io,
+            canvas: Class('Canvas', {
+                drawAdapter: Class('Draw')
+            }),
+            drawType: $('#drawingType button.active').attr('data-draw-type')
+        };
 });
