@@ -8,11 +8,12 @@ requirejs.config({
         Define: '/javascripts/Define',
         Class: '/javascripts/Class',
         DrawLine: '/javascripts/draw/Line',
-        DrawSquare: '/javascripts/draw/Square'
+        DrawSquare: '/javascripts/draw/Square',
+        DrawPen: '/javascripts/draw/Pen'
     }
 });
 require(['lodash', 'jquery', 'bower/socket.io.js', 'Define', 'Class'], function(){
-    require(['Canvas', 'Canvas', 'Draw', 'DrawCore', 'DrawLine', 'DrawSquare', 'App'], function(){
+    require(['Canvas', 'Canvas', 'Draw', 'DrawCore', 'DrawLine', 'DrawSquare', 'DrawPen', 'App'], function(){
 
     });
 });

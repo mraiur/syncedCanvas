@@ -14,8 +14,9 @@ require(['Define', 'DrawCore'], function() {
             };
         },
 
-        setPath: function( path ) {
+        setPath: function( canvas, path ) {
             this._points = path;
+            this.draw(canvas);
         },
 
         mouseDown: function(coords, canvas, e){
@@ -25,7 +26,7 @@ require(['Define', 'DrawCore'], function() {
         mouseUp: function(coords, canvas, e){
             this._points.end = coords;
             this.draw( canvas );
-            this.parent().draw('line', this._points);
+            this.parent().draw(this.drawType, this._points);
             this._clean();
         },
 

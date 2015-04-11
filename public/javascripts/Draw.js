@@ -10,16 +10,6 @@ require(['Define'], function() {
 
         setDrawType: function( drawType ){
             this._currentTool = this._getTool(drawType);
-            /*var drawClass = 'Draw.' + _.capitalize(drawType);
-            console.log('drawClass', drawClass);
-            if( typeof this._drawTools[drawClass] == "undefined" && ClassManager.map[ drawClass ] ){
-                this._currentTool = Class(drawClass);
-                this._drawTools[drawClass] = this._currentTool;
-            } else if ( typeof ClassManager.map[ drawClass ] != 'undefined' ) {
-
-            } else {
-                console.log(" no drawing");
-            }*/
         },
 
         _getTool: function(drawType){
@@ -30,10 +20,10 @@ require(['Define'], function() {
             return this._drawTools[drawClass];
         },
 
+
+        // TODO remove duplicated callback functions
         mouseUp: function(coords, e){
             this._isMouseDown = false;
-            console.log("mouse up");
-
             if( this._currentTool ) {
                 this._currentTool.mouseUp.apply(this._currentTool, arguments);
             }
@@ -41,8 +31,6 @@ require(['Define'], function() {
 
         mouseMove: function(){
             if(this._isMouseDown) {
-                console.log("mouse move");
-
                 if( this._currentTool ) {
                     this._currentTool.mouseMove.apply(this._currentTool, arguments);
                 }
@@ -51,8 +39,6 @@ require(['Define'], function() {
 
         mouseDown: function(){
             this._isMouseDown = true;
-            console.log("mouse down");
-
             if( this._currentTool ) {
                 this._currentTool.mouseDown.apply(this._currentTool, arguments);
             }
@@ -60,8 +46,6 @@ require(['Define'], function() {
 
         mouseLeave: function(){
             this._isMouseDown = false;
-            console.log('mouse leave');
-
             if( this._currentTool ) {
                 this._currentTool.mouseLeave.apply(this._currentTool, arguments);
             }
@@ -75,8 +59,8 @@ require(['Define'], function() {
         // Involked by the sockets
         directDraw: function(canvas, type, path){
             var tool = this._getTool(type);
-            tool.setPath(path);
-            tool.draw(canvas);
+            tool._clean();
+            tool.setPath(canvas, path);
             tool._clean();
         }
     });
