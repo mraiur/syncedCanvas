@@ -1,5 +1,6 @@
-var gulp = require('gulp');
-var bowerFiles = require('main-bower-files');
+var gulp = require('gulp'),
+    sass = require('gulp-sass'),
+    bowerFiles = require('main-bower-files');
 
 gulp.task('bower', function(){
     return gulp.src(bowerFiles())
@@ -10,6 +11,12 @@ gulp.task('clean', function(){
     //TODO make any cleaning of directories or assets
 });
 
-gulp.task('default', ['clean'], function(){
-    gulp.start('bower');
+gulp.task('sass', function(){
+    gulp.src('./resources/sass/*.scss')
+        .pipe( sass() )
+        .pipe( gulp.dest('./public/stylesheets/') );
+});
+
+gulp.task('default', [], function(){
+    gulp.start('bower', 'sass');
 });

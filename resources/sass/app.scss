@@ -1,0 +1,5 @@
+@import "bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+#canvas{
+  border:solid #00BFFF 1px;
+  @include box-shadow(0, 1px, 1px, rgba(0, 0, 0, 0.075), inset);
+}
