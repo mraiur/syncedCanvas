@@ -19,6 +19,11 @@ io.on('connection', function(socket){
         io.sockets.emit('listCanvasRooms', io.sockets.adapter.rooms);
     });
 
+    socket.on('draw', function(data){
+        console.log("=>", data);
+        io.sockets.to(data.room).emit('draw', data);
+    });
+
     socket.on('getAllCanvasRooms', function(){
         io.sockets.emit('listCanvasRooms', io.sockets.adapter.rooms);
     });

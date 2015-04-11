@@ -8,7 +8,14 @@ Define = function(name, params){
         init: function(p){
 
         },
-        parents: []
+        parents: [],
+        parent: function(){
+            if( this.parents.length > 0){
+                return _.last( this.parents );
+            }
+            return null;
+        }
+
     }, _.clone(params));
     var keyParts = name.split('.');
     var s = ClassManager.tree;

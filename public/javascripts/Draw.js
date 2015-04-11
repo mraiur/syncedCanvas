@@ -9,7 +9,8 @@ require(['Define'], function() {
         _currentTool: null,
 
         setDrawType: function( drawType ){
-            var drawClass = 'Draw.' + _.capitalize(drawType);
+            this._currentTool = this._getTool(drawType);
+            /*var drawClass = 'Draw.' + _.capitalize(drawType);
             console.log('drawClass', drawClass);
             if( typeof this._drawTools[drawClass] == "undefined" && ClassManager.map[ drawClass ] ){
                 this._currentTool = Class(drawClass);
@@ -18,7 +19,15 @@ require(['Define'], function() {
 
             } else {
                 console.log(" no drawing");
+            }*/
+        },
+
+        _getTool: function(drawType){
+            var drawClass = 'Draw.' + _.capitalize(drawType);
+            if( typeof this._drawTools[drawClass] == "undefined" && ClassManager.map[ drawClass ] ){
+                this._drawTools[drawClass] = Class(drawClass);
             }
+            return this._drawTools[drawClass];
         },
 
         mouseUp: function(coords, e){
@@ -56,6 +65,19 @@ require(['Define'], function() {
             if( this._currentTool ) {
                 this._currentTool.mouseLeave.apply(this._currentTool, arguments);
             }
+        },
+
+        // All sub type drawing must call this function.
+        draw: function(type, coords){
+            this.onDraw(type, coords);
+        },
+
+        // Involked by the sockets
+        directDraw: function(canvas, type, path){
+            var tool = this._getTool(type);
+            tool.setPath(path);
+            tool.draw(canvas);
+            tool._clean();
         }
     });
 });

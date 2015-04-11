@@ -1,6 +1,6 @@
 require(['Define', 'DrawCore'], function() {
     Define('Draw.Square', {
-        drawType: 'line',
+        drawType: 'square',
 
         _points: {
             start: null,
@@ -14,6 +14,10 @@ require(['Define', 'DrawCore'], function() {
             };
         },
 
+        setPath: function( path ) {
+            this._points = path;
+        },
+
         mouseDown: function(coords, canvas, e){
             this._points.start = coords;
         },
@@ -21,6 +25,7 @@ require(['Define', 'DrawCore'], function() {
         mouseUp: function(coords, canvas, e){
             this._points.end = coords;
             this.draw( canvas );
+            this.parent().draw('square', this._points);
             this._clean();
         },
 

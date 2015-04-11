@@ -4,6 +4,26 @@ require(['jquery', 'bower/socket.io.js', 'lodash'],
         MRAIUR = io = io('http://localhost:3030');
 
         if( room ) {
+            var drawAdapter = Class('Draw', {
+                onDraw: function( type, path ){
+                    var data = {
+                        type: type,
+                        path: path,
+                        room: room
+                    };
+                    io.emit('draw', data);
+                }
+            });
+
+            var canvas = Class('Canvas', {
+                drawAdapter: drawAdapter
+            });
+
+            io.on('draw', function(data){
+                drawAdapter.directDraw(canvas, data.type, data.path);
+            });
+
+
             io.emit('joinCanvasRoom', {
                 roomId: room
             });
@@ -11,7 +31,7 @@ require(['jquery', 'bower/socket.io.js', 'lodash'],
             $('#drawingType button').click(function() {
                 $(this).addClass('active').siblings().removeClass('active');
                 var drawType = $(this).attr('data-draw-type')
-                window.app.canvas.drawAdapter.setDrawType( drawType );
+                canvas.drawAdapter.setDrawType( drawType );
             });
 
         } else {
@@ -25,12 +45,9 @@ require(['jquery', 'bower/socket.io.js', 'lodash'],
 
             });
         }
-        //var canvas = Class('Canvas');
+
         // TODO make a better instance storage
         window.app = {
-            io: io,
-            canvas: Class('Canvas', {
-                drawAdapter: Class('Draw')
-            })
+            io: io
         };
 });
