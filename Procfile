@@ -1,1 +1,1 @@
-web: node bin/www
+web: DEBUG=syncedCanvas:* ./bin/www
