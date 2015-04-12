@@ -22,7 +22,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('draw', function(data){
-        console.log("=>", data);
+        console.log((new Date()).toUTCString(), "=>",  data);
         io.sockets.to(data.room).emit('draw', data);
     });
 
