@@ -1,7 +1,7 @@
 require(['jquery', 'bower/socket.io.js', 'lodash'],
     function($, io){
         var room = location.pathname.substring(1);
-        var socketUrl = document.location.protocol+'//'+location.hostname+':5000';
+        var socketUrl = document.location.protocol+'//'+location.hostname+'';
         console.log(socketUrl);
         MRAIUR = io = io(socketUrl);
 
